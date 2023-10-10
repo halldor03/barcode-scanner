@@ -2,7 +2,5 @@
 </script>
 
 <template>
-  <main>
-    This is home
-  </main>
+  Hello world
 </template>
