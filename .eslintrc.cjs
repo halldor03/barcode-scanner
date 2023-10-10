@@ -13,9 +13,7 @@ module.exports = {
   plugins: ['prettier'],
   rules: {
     'no-console': 'error',
-    semi: 'error',
-    quotes: ['error', 'single', { avoidEscape: false }],
-    'vue/html-quotes': ['error', 'single', { avoidEscape: false }]
+    semi: 'error'
   },
   parserOptions: {
     ecmaVersion: 'latest'
