@@ -23,8 +23,5 @@ jobs:
       - name: Build the app
         run: npm run build
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-
       - name: Deploying the static website to gh-pages
         run: npm run deploy
