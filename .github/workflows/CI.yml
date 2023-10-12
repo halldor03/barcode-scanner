@@ -1,32 +1,30 @@
-# This script deploys your website automatically
 name: Deploy to GitHub Pages
 
-# Only trigger this script when you push to the main branch
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 
-# Specify the tasks to run when this script gets triggered
 jobs:
   build:
     runs-on: ubuntu-latest
-    
-    - name: Checkout repository
-      uses: actions/checkout@v2
 
-    - name: Install Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: 14
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-    - name: Install dependencies
-      run: npm install
+      - name: Install Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
 
-    - name: Build the app
-      run: npm run build
+      - name: Install dependencies
+        run: npm install
 
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
+      - name: Build the app
+        run: npm run build
 
-    - name: Deploying the static website to gh-pages
-      run: npm run deploy
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+
+      - name: Deploying the static website to gh-pages
+        run: npm run deploy
