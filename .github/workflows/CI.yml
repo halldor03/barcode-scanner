@@ -4,11 +4,6 @@ on:
   push:
     branches: [main]
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -16,6 +11,13 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+
+      - name: Check Github User
+        run: |
+          git config --local user.name "halldor03"
+          git config --local user.email "kacoleker@gmail.com"
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.PAT }}
 
       - name: Install Node.js
         uses: actions/setup-node@v2
