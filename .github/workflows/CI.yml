@@ -14,8 +14,8 @@ jobs:
 
       - name: Set Git User Identity
         run: |
-          git config --global user.email "you@example.com"
-          git config --global user.name "Your Name"
+          git config --global user.email "kacoleker@gmail.com"
+          git config --global user.name "halldor03"
 
       - name: Install Node.js
         uses: actions/setup-node@v2
