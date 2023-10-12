@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { Ref, ref } from "vue";
 import { v4 as uuid } from "uuid";
-import {StreamBarcodeReader} from "vue-barcode-reader";
+import { StreamBarcodeReader } from "vue-barcode-reader";
 
 const name = ref("");
-const scannerOpened= ref();
+const scannerOpened = ref();
 const barcode = ref("");
-const productScanned: boolean = ref(false);
+const productScanned: Ref<boolean> = ref(false);
 
 function addToDB() {
   const item = {
@@ -22,7 +22,7 @@ const onDecode = (text) => {
   barcode.value = text;
 };
 
-function toggleCamera(){
+function toggleCamera() {
   scannerOpened.value = !scannerOpened.value;
 }
 
@@ -31,10 +31,10 @@ function toggleCamera(){
 
 <template>
   <main>
-     <div>
-     <button @click="toggleCamera">{{scannerOpened ? 'Close scanner'  : 'Add file by scanner'}}</button>
-     <p v-if="productScanned"> Product barcode is : {{barcode}}</p>
-      <StreamBarcodeReader v-if="scannerOpened" @decode="onDecode" @error="onError"></StreamBarcodeReader>
+    <div>
+      <button @click="toggleCamera">{{ scannerOpened ? 'Close scanner' : 'Add file by scanner' }}</button>
+      <p v-if="productScanned"> Product barcode is : {{ barcode }}</p>
+      <StreamBarcodeReader v-if="scannerOpened" @decode="onDecode"></StreamBarcodeReader>
     </div>
     <div>
       <input v-model="name" class="me-2" type="text">
