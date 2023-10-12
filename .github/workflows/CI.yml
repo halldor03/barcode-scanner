@@ -18,6 +18,7 @@ jobs:
           git config --local user.email "kacoleker@gmail.com"
           git config user.name
           git config user.email
+
         env:
           NODE_AUTH_TOKEN: ${{ secrets.PAT }}
 
