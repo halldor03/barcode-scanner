@@ -12,11 +12,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Set Git User Identity
-        run: |
-          git config --global user.email "kacoleker@gmail.com"
-          git config --global user.name "halldor03"
-
       - name: Install Node.js
         uses: actions/setup-node@v2
         with:
@@ -26,4 +21,8 @@ jobs:
         run: npm install
 
       - name: Deploying the static website to gh-pages
-        run: npm run deploy
+        run: |
+          git config --global credential.helper store
+          git config --global user.email "kacoleker@gmail.com"
+          git config --global user.name "halldor03"
+          npm run deploy
