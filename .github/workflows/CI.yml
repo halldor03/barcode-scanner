@@ -4,6 +4,11 @@ on:
   push:
     branches: [main]
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -21,8 +26,4 @@ jobs:
         run: npm install
 
       - name: Deploying the static website to gh-pages
-        run: |
-          git config --global credential.helper store
-          git config --global user.email "kacoleker@gmail.com"
-          git config --global user.name "halldor03"
-          npm run deploy
+        run: npm run deploy
