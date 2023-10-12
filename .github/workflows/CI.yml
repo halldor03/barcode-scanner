@@ -10,11 +10,23 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
-    # Download our main branch
-    steps:
-    - uses: actions/checkout@v2
+    - name: Install Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: 14
 
-    # Run our deployment command
+    - name: Install dependencies
+      run: npm install
+
+    - name: Build the app
+      run: npm run build
+
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+
     - name: Deploying the static website to gh-pages
       run: npm run deploy
