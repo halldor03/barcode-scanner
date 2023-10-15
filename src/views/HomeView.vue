@@ -3,6 +3,6 @@
 
 <template>
   <main>
-    This is homee
+    This is home
   </main>
 </template>
