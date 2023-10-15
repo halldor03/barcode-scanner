@@ -4,13 +4,16 @@ on:
   push:
     branches: [main]
 
+permissions:
+  contents: write
+
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Check Github User
         run: |
@@ -25,7 +28,11 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Deploying the static website to gh-pages
-        run: npm run deploy
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT }}
+      - name: Build project
+        run: npm run build
+
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: dist
+          secret: ${{ secrets.PAT }}
