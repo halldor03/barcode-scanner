@@ -5,7 +5,7 @@
   "background_color": "#ffffff",
   "display": "standalone",
   "scope": "/",
-  "start_url": "/",
+  "start_url": "/barcode-scanner/",
   "icons": [
     {
       "src": "img/icons/android-chrome-192x192.png",
