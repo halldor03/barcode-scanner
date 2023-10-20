@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import ComponentTest from "@/components/ComponentTest.vue";
+import FridgeComponent from "@/components/FridgeComponent.vue";
 </script>
 
 <template>
   <main>
-    <ComponentTest />
+    <FridgeComponent />
   </main>
 </template>

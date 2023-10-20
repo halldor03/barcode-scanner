@@ -1,14 +1,11 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from "vue-router";
+import { RouterView } from "vue-router";
+import NavBar from "./components/Navbar.vue";
 </script>
 
 <template>
   <header>
-    <nav>
-      <RouterLink to="/">Home</RouterLink>
-      <RouterLink to="/component">Component test</RouterLink>
-      <RouterLink to="/mongodb">MongoDB test</RouterLink>
-    </nav>
+   <NavBar />
   </header>
   <main>
     <RouterView />
