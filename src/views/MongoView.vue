@@ -1,44 +1,62 @@
 <script setup lang="ts">
 import { Ref, ref } from "vue";
-import { v4 as uuid } from "uuid";
+import axios from "axios";
 import { StreamBarcodeReader } from "vue-barcode-reader";
 
-const name = ref("");
-const scannerOpened = ref();
-const barcode = ref("");
-const productScanned: Ref<boolean> = ref(false);
+const isScannerOpened = ref();
+const productBarcode = ref("");
+const isProductScanned: Ref<boolean> = ref(false);
+const productData = ref();
+const isProductFound: Ref<boolean> = ref();
 
-function addToDB() {
-  const item = {
-    id: uuid(),
-    name: name.value
-  };
-  name.value = "";
-}
-
-const onDecode = (text) => {
-  productScanned.value = true;
-  scannerOpened.value = false;
-  barcode.value = text;
+const onDecode = (text: string) => {
+  isProductScanned.value = true;
+  isScannerOpened.value = false;
+  productBarcode.value = text;
+  handleProductFetching();
 };
 
 function toggleCamera() {
-  scannerOpened.value = !scannerOpened.value;
+  isScannerOpened.value = !isScannerOpened.value;
 }
 
+function handleProductFetching() {
+  // TODO: check if product exists in DB, if so get it from there, else fetch from API
+  fetchProductFromAPI();
+  productBarcode.value = null;
+}
+
+async function fetchProductFromAPI() {
+  try {
+    const response = await axios.get(`https://world.openfoodfacts.org/api/v3/product/${productBarcode.value}.json`);
+    productData.value = response.data.product;
+    isProductFound.value = true;
+
+  } catch (error) {
+    if (error.response.data.result.id === "product_not_found") {
+      isProductFound.value = false;
+      console.log("product not found");
+    }
+    else console.error(error);
+  }
+}
 </script>
 
 
 <template>
   <main>
     <div>
-      <button @click="toggleCamera">{{ scannerOpened ? 'Close scanner' : 'Add file by scanner' }}</button>
-      <p v-if="productScanned"> Product barcode is : {{ barcode }}</p>
-      <StreamBarcodeReader v-if="scannerOpened" @decode="onDecode"></StreamBarcodeReader>
-    </div>
-    <div>
-      <input v-model="name" class="me-2" type="text">
-      <button @click="addToDB">Add item to database</button>
+      <input v-model="productBarcode" class="w-100 mb-2" type="text">
+      <div class="d-flex">
+        <button @click="toggleCamera">{{ isScannerOpened ? 'Close scanner' : 'Add file by scanner' }}</button>
+        <StreamBarcodeReader v-if="isScannerOpened" @decode="onDecode"></StreamBarcodeReader>
+        <button class="ms-2" @click="handleProductFetching">Add product manually</button>
+      </div>
+      <p v-if="isProductFound"> Keywords: {{ productData._keywords }} </p>
+      <div v-if="isProductFound" class="d-flex justify-content-center">
+        <img :src="productData.image_url" />
+      </div>
+      <p v-if="productData && !productData.image_url"> Image not found </p>
     </div>
   </main>
 </template>
