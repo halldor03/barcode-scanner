@@ -2,6 +2,8 @@ import { createRouter, createWebHashHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import TestView from "../views/TestView.vue";
 import MongoView from "../views/MongoView.vue";
+import StatisticsView from "../views/StatisticsView.vue";
+import ShoppingView from "../views/ShoppingView.vue";
 
 const router = createRouter({
   history: createWebHashHistory(),
@@ -15,6 +17,16 @@ const router = createRouter({
       path: "/component",
       name: "component",
       component: TestView
+    },
+    {
+      path: "/shopping",
+      name: "shopping",
+      component: ShoppingView
+    },
+    {
+      path: "/statistics",
+      name: "statistics",
+      component: StatisticsView
     },
     {
       path: "/mongodb",
